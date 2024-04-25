@@ -11,6 +11,10 @@ router.get("/signup", (req, res) => {
     return res.render("signup");
 });
 
+router.get("/logout", (req, res) => {
+    return res.clearCookie("blog-token").redirect("/");
+});
+
 router.post("/signin", async (req, res) => {
     const { email, password } = req.body;
     try {
@@ -18,9 +22,9 @@ router.post("/signin", async (req, res) => {
 
         return res.cookie("blog-token", token).redirect("/");
     } catch (error) {
-        // return res.render("signin", {
-        //     error: "Invalid credentials",
-        // });
+        return res.render("signin", {
+            error: "Invalid credentials",
+        });
     }
 });
 

@@ -4,7 +4,7 @@ function checkForAuthCookie(cookieName) {
     return (req, res, next) => {
         const tokenCookieValue = req.cookies[cookieName];
         if (!tokenCookieValue) {
-            next();
+            return next();
         }
 
         try {
@@ -12,7 +12,7 @@ function checkForAuthCookie(cookieName) {
             req.user = userPayload;
         } catch (error) {}
 
-        next();
+        return next();
     };
 }
 

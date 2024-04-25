@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 
 import userRoutes from "./routes/user.js";
+import blogRouter from "./routes/blog.js";
 import { checkForAuthCookie } from "./middlewares/authentication.js";
 
 dotenv.config({
@@ -35,6 +36,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/user", userRoutes);
+app.use("/blog", blogRouter);
 
 app.listen(port, (req, res) => {
     console.log(`Server is running on port ${port}`);

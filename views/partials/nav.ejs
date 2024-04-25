@@ -22,10 +22,12 @@
                         >Home</a
                     >
                 </li>
+                
                 <% if (locals.user) { %>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">Add Blog</a>
+                    <a href="/blog/add-new" class="nav-link">Add Blog</a>
                 </li>
+
                 <% } %> <% if (locals.user) { %>
                 <li class="nav-item dropdown">
                     <a
@@ -35,13 +37,20 @@
                         data-bs-toggle="dropdown"
                         aria-expanded="false"
                     >
-                        {user.email}
+                        <%= locals.user.fullName %>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                        <li><a class="dropdown-item" href="/user/logout">Logout</a></li>
                     </ul>
                 </li>
-                <% } %> <% if (!locals.user) { %>
+                <% } %> 
+
+                <% if (!locals.user) { %>
+                <a href="/user/signup" class="nav-item">
+                    <button class="btn btn-secondary" type="button">
+                        Create an Account
+                    </button>
+                </a>
                 <a href="/user/signin" class="nav-item">
                     <button class="btn btn-primary" type="button">
                         Sign In

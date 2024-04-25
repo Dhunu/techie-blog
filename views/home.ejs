@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
     <head>
         <%- include('./partials/head.ejs') %>
@@ -11,9 +11,9 @@
             <p class="text-center">
                 This is a simple homepage for a blog application
             </p>
-            <%= user ? `
-            <h3 class="text-center">Welcome, ${JSON.stringify(user)}</h3>
-            ` : '' %>
+            <h1 class="text-center">
+                <%= user && "Welcome, " +user.fullName %>
+            </h1>
         </div>
         <%- include('./partials/scripts.ejs') %>
     </body>
