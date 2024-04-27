@@ -1,5 +1,5 @@
 import express from "express";
-import { resolve } from "path";
+import path, { resolve } from "path";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser";
 import userRoutes from "./routes/user.js";
 import blogRouter from "./routes/blog.js";
 import { checkForAuthCookie } from "./middlewares/authentication.js";
+import Blog from "./models/blog.js";
 
 dotenv.config({
     path: resolve(".env.local"),
@@ -14,6 +15,7 @@ dotenv.config({
 
 const app = express();
 app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.resolve("./public")));
 app.use(cookieParser());
 app.use(checkForAuthCookie("blog-token"));
 
@@ -29,9 +31,11 @@ if (dbStatus) {
 app.set("view engine", "ejs");
 app.set("views", resolve("./views"));
 
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
+    const allBlogs = await Blog.find({});
     res.render("home", {
         user: req.user,
+        blogs: allBlogs,
     });
 });
 
